@@ -29,9 +29,8 @@ class Tenant
     {
 
         if ($hostname = Hostname::where('fqdn', $fqdn)->with(['website'])->firstOrFail()) {
-            $website = $hostname->website->first();
             app(HostnameRepository::class)->delete($hostname, true);
-            app(WebsiteRepository::class)->delete($website, true);
+            app(WebsiteRepository::class)->delete($hostname->website, true);
         }
 
     }
